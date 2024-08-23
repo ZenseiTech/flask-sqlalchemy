@@ -1,18 +1,29 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
 
 import init_db
 from model import db, Post, Comment
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+if os.path.exists(dotenv_path):
+    print("=====******> ", dotenv_path)
+    load_dotenv(dotenv_path)
+
+print(os.environ.get('FLASK_COVERAGE'))
+if os.environ.get('FLASK_COVERAGE') == 'True':
+    print("Coverage....")
+
 app = Flask(__name__)
 
 # postgresql://username:password@host:port/database_name
 # mysql://username:password@host:port/database_name
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'database.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
+    os.path.join(basedir, 'database.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # initialize the app with the extension

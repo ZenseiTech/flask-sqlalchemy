@@ -1,2 +1,7 @@
 Flask
 Flask-SQLAlchemy
+python-dotenv
+matplotlib
+numpy
+quart
+quart-sqlalchemy
